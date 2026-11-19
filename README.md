@@ -1,5 +1,5 @@
 # Soal 1: The Report
-### Jawaban versi 1:
+### Jawaban versi 1 (MySQL):
 ```sql
 SELECT 
     case when g.Grade >= 8 then s.Name else "NULL" end as Name,
@@ -39,3 +39,24 @@ go
 ```
 ###Output:
 ![Hasil Query Soal 1](Output_Soal_1_HackerRank.png)
+
+
+# Soal 2: Weather Observation Station 18
+### Jawaban:
+
+```sql
+SET NOCOUNT ON;
+
+select 
+    cast(
+        round(
+            abs(min(LAT_N)-max(LAT_N))+
+        abs(min(LONG_W)-max(LONG_W))
+        ,4) AS DECIMAL(10,4)
+        )
+from STATION
+
+go
+```
+###Output:
+![Hasil Query Soal 2](Output_Soal_2_HackerRank.png)
