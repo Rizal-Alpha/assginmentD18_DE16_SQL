@@ -10,7 +10,8 @@ LEFT JOIN Grades g ON s.Marks BETWEEN g.Min_Mark AND g.Max_Mark
 order by g.Grade Desc, s.Name;
 ```
 ### Jawaban versi 2 (MS SQL):
-```SET NOCOUNT ON;
+```sql
+SET NOCOUNT ON;
 
 WITH cte_student_grade AS (
     SELECT
