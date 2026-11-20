@@ -78,10 +78,11 @@ WITH cte_max_criteria AS (
     FROM Challenges c
     INNER JOIN Difficulty d ON c.difficulty_level = d.difficulty_level
 ),
---ambil mereka yg took challenge >1(nama harus >1) dan scorenya reach max_criteria
+--ambil mereka yg took challenge >1(jumlah_challenge_diikuti harus >1) dan scorenya reach max_criteria
+--untuk hindari efek tie, pakai distinct
 cte_score_submitted AS (   
   SELECT    
-    count(hacker_id) jumlah_challenge_diikuti , hacker_id
+    COUNT(DISTINCT s.challenge_id) jumlah_challenge_diikuti , hacker_id
     FROM Submissions s
     INNER JOIN cte_max_criteria cmc on cmc.challenge_id = s.challenge_id
     where s.score = cmc.max_criteria 
@@ -133,3 +134,30 @@ go
 ```
 ###Output:
 ![Hasil Query Soal 4](Output_Soal_4_HackerRank.png)
+
+
+# Soal 5: Contest Leaderboard
+### Jawaban (MS SQL):
+
+```sql
+SET NOCOUNT ON;
+
+--peserta berulang kali mengambil tes yg sama, langsung ambil id yg max score-nya
+with cte_max_id as (
+select challenge_id, hacker_id, max(score) max_score
+from Submissions
+where score > 1 
+group by challenge_id, hacker_id
+)
+--kita saring nilai tertingginya agar ini bisa dijumlahkan menjadi total score
+select cmi.hacker_id, h.name, sum(cmi.max_score) total_score
+from cte_max_id cmi
+inner join Hackers h on cmi.hacker_id = h.hacker_id
+group by cmi.hacker_id, h.name
+order by sum(cmi.max_score) desc, cmi.hacker_id
+
+go
+```
+
+###Output:
+![Hasil Query Soal 5](Output_Soal_5_HackerRank.png)
