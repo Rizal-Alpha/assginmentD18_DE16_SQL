@@ -104,3 +104,32 @@ go
 ```
 ###Output:
 ![Hasil Query Soal 3](Output_Soal_3_HackerRank.png)
+
+
+
+# Soal 4: Ollivander's Inventory
+### Jawaban (MS SQL):
+
+```sql
+SET NOCOUNT ON;
+
+--cek apakah ada age dan power sama tapi harga berbeda (ternyata ada)
+--di soal si hermoine ingin ambil wands tapi harga paling minimum, 
+--maka pakai window tapi pakai partisi karena tiap item berbeda
+with cte_coin_minimum as (
+    select w.id, wp.age, w.power, w.coins_needed, min(coins_needed) over(partition by wp.age, w.power) min_coin
+    from Wands w
+    inner join Wands_Property wp on w.code = wp.code
+    where wp.is_evil != 1
+)
+--di sini baru kita filter hanya yg sesuai dengan min_coin tersebut
+select w.id, ccm.age, w.coins_needed, w.power
+from Wands w
+inner join cte_coin_minimum ccm on w.id = ccm.id
+where w.coins_needed = ccm.min_coin
+order by w.power Desc, age DESC 
+
+go
+```
+###Output:
+![Hasil Query Soal 4](Output_Soal_4_HackerRank.png)
