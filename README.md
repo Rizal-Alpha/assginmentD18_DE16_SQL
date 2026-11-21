@@ -161,3 +161,15 @@ go
 
 ###Output:
 ![Hasil Query Soal 5](Output_Soal_5_HackerRank.png)
+
+
+
+#Reflection Questions
+####1. Ketika membangun solusi untuk setiap studi kasus, bagaimana Anda menentukan struktur query yang paling efektif (misalnya memutuskan kapan menggunakan CTE, kapan cukup dengan subquery, atau kapan window function lebih tepat dibanding agregasi biasa)? Jelaskan bagaimana pertimbangan tersebut membantu Anda menghasilkan query yang lebih terstruktur, mudah diuji, dan efisien.
+
+Jawab:
+saya akan selalu prioritaskan CTE daripada subquery karena keterbacaan di CTE lebih baik dan membantu saya lebih cepat memikirkan koneksi antar table. Saya memulai CTE ini dengan cara melakukan testing secara bertahap, saya buat komen (--) untuk yang saya rasa sudah aman, dan fokus di query yg belum aman, Ketika semua telah berjalan, maka saya uncomment Kembali lalu melakukan run total secara keseluruhan
+
+####2. Setelah mengerjakan seluruh soal, teknik SQL lanjutan apa yang menurut Anda paling memberi dampak pada cara Anda menganalisis dan memproses data (misalnya range join, window function, nested aggregation, atau CASE WHEN)? Jelaskan bagaimana teknik tersebut dapat membantu Anda menyelesaikan masalah data yang lebih kompleks di pekerjaan nyata.
+
+Jawab: saya cukup merasa terbantu dengan adanya window function apalagi jika dipadukan dengan CTE, maka table hasil CTE dengan window function di dalamnya bisa menjadi filter per baris dimana itu cukup sulit dilakukan jika hanya dalam satu query pada soal yg cukup rumit/kompleks
